@@ -1,3 +1,15 @@
+A supervised classification model predicting Premier League match outcomes
+— home win, draw, or away win — from historical match data.
+
+The pipeline covers data cleaning, feature engineering from match history
+(rolling form, goal difference, home/away splits, rest days), chronological
+train/test splitting to avoid data leakage, and evaluation against a
+majority-class baseline using confusion matrices and log loss.
+
+Models: logistic regression, then random forest for comparison.
+
+`Python` `pandas` `scikit-learn` `NumPy`
+
 ## Data dictionary
 
 Source: football-data.co.uk, Premier League (E0). 380 matches, 132 columns.
