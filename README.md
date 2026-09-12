@@ -1,4 +1,4 @@
-#IDEA 
+## IDEA
 
 
 A supervised classification model predicting Premier League match outcomes
