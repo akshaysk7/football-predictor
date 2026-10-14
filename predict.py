@@ -31,7 +31,9 @@ def points(venue,FTR):
 team_matches['points']= team_matches.apply(lambda row: points(row['venue'],row['FTR']), axis=1)
 #print(team_matches['points'].value_counts())
 team_matches=team_matches.sort_values('Date',ignore_index=True)
-print(team_matches.groupby('team').get_group('Arsenal')[['Date','opponent','venue','points']].head(8))
 team_matches['form5']=team_matches.groupby('team')['points'].transform(lambda s: s.rolling(5).sum().shift(1))
+print(team_matches.groupby('team').get_group('Arsenal')[['Date','opponent','venue','points','form5']].head(8))
 print(team_matches['form5'].isna().sum())
+
+
 
