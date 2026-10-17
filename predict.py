@@ -2,6 +2,7 @@ import pandas as pd
 df=pd.read_csv("E0.csv")
 df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y')
 df = df.sort_values('Date', ignore_index=True)
+df['match_id']=df.index
 home_view = df.copy()
 home_view['team'] = df['HomeTeam']
 home_view['opponent'] = df['AwayTeam']
@@ -34,6 +35,12 @@ team_matches=team_matches.sort_values('Date',ignore_index=True)
 team_matches['form5']=team_matches.groupby('team')['points'].transform(lambda s: s.rolling(5).sum().shift(1))
 print(team_matches.groupby('team').get_group('Arsenal')[['Date','opponent','venue','points','form5']].head(8))
 print(team_matches['form5'].isna().sum())
-
-
+print(team_matches[team_matches['match_id'] == 58][['match_id', 'Date', 'team', 'opponent', 'venue', 'form5']])
+home_form=team_matches[team_matches['venue']=='Home'][['match_id','form5']].rename(columns={'form5':'home_form5'})
+print(home_form.head())
+away_form=team_matches[team_matches['venue']=='Away'][['match_id','form5']].rename(columns={'form5':'away_form5'})
+print(away_form.head())
+print(home_form[home_form['match_id']==58])
+matches=df.merge(home_form, on='match_id').merge(away_form, on='match_id')
+print(matches[matches['match_id'] == 58][['HomeTeam', 'AwayTeam', 'home_form5', 'away_form5', 'FTR']])
 
